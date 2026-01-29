@@ -5,13 +5,15 @@
 
 ## Table of Contents
 
--[About the Company](#about-the-company)
+-[Company Overview](#company-overview)
 
 -[Project Overview](#property-overview) 
 
 -[Data Sources](#data-sources)
 
 -[Tools](#tools)
+
+-[Data Understanding & Structure](#data-understanding-&-structure)
 
 -[Data Preparation](#data-preparation)
 
@@ -25,20 +27,26 @@
 
 -[References](references)
 
-## About the Company
+## Company Overview
 
 ## Project Overview
-
-
-
+- Business Problem
+- Objectives
+- Key questions the analysis aims to answer
 
 ![Support_Your_App_dashboard](https://github.com/user-attachments/assets/3835c652-c801-4685-a340-bedae590ca07)
+
 ## Data Sources
 
 This project uses a simulated, synthetic dataset created for portfolio and learning purposes. The data does not represent real clients, users, or operational records and was generated to reflect realistic customer support scenarios for analytical demonstration only.
+
+## Tools
+
+## Data Understanding & Structure
+
 ## Data Preparation
 
-## Exploratory Data Analysis
+## Exploratory Data Analysis (EDA)
 
 ## Data Analysis
 
