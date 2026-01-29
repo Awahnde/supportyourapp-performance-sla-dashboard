@@ -27,8 +27,10 @@
 
 ## About the Company
 ## Project Overview
+
+
 ## Data Sources
-## Tools
+This project uses a simulated, synthetic dataset created for portfolio and learning purposes. The data does not represent real clients, users, or operational records and was generated to reflect realistic customer support scenarios for analytical demonstration only.
 ## Data Preparation
 ## Exploratory Data Analysis
 ## Data Analysis
