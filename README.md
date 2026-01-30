@@ -55,7 +55,16 @@ This project uses a simulated, synthetic dataset created for portfolio and learn
    <img width="1166" height="341" alt="image" src="https://github.com/user-attachments/assets/280c2dc5-2c9f-4398-b6d4-1a36719ab0a3" />
 
 There is a steady increase in the number of recorded calls from October and November. November witnessed the highest number of calls from 68 calls to 82 calls. Signalling a 20,6% increase.
-<img width="1167" height="337" alt="image" src="https://github.com/user-attachments/assets/b9ceff6d-c689-46de-8fd4-450764ad3315" /> <img width="1162" height="335" alt="image" src="https://github.com/user-attachments/assets/0cf7c8b5-6fbf-4dda-8078-7cc51c462254" />
+
+<img width="1167" height="337" alt="image" src="https://github.com/user-attachments/assets/b9ceff6d-c689-46de-8fd4-450764ad3315" />
+*Figure 1: Customer Support Performance & SLA Monitoring Dashboard*
+
+
+<img width="1162" height="335" alt="image" src="https://github.com/user-attachments/assets/0cf7c8b5-6fbf-4dda-8078-7cc51c462254" />
+*Figure 1: Customer Support Performance & SLA Monitoring Dashboard*
+
+
+
 
 On Thursday, October 10, 2025 had the highest recorded calls at 6 total calls for the month of October. 
 On Monday, November 10 2025 had the highest recorded calls at a total of 8 calls. Wednesday, the 26th of November 2025 had a total of 6 recorded calls. 
