@@ -5,27 +5,27 @@
 
 ## Table of Contents
 
--[Company Overview](#company-overview)
+* [Company Overview](#company-overview)
 
--[Project Overview](#property-overview) 
+* [Project Overview](#property-overview) 
 
--[Data Sources](#data-sources)
+* [Data Sources](#data-sources)
 
--[Tools](#tools)
+* [Tools](#tools)
 
--[Data Understanding & Structure](#data-understanding-&-structure)
+* [Data Understanding & Structure](#data-understanding-&-structure)
 
--[Data Preparation](#data-preparation)
+* [Data Preparation](#data-preparation)
 
--[Exploratory Data Analysis](#exploratory-data-analysis)
+* [Exploratory Data Analysis](#exploratory-data-analysis)
 
--[Data Analysis](data-analysis)
+* [Data Analysis](data-analysis)
 
--[Results](results)
+* [Results](results)
 
--[Recommendations](recommendations)
+* [Recommendations](recommendations)
 
--[References](references)
+* [References](references)
 
 ## Company Overview
 
@@ -62,6 +62,7 @@ There is a steady increase in the number of recorded calls from October and Nove
 
 <img width="1162" height="335" alt="image" src="https://github.com/user-attachments/assets/0cf7c8b5-6fbf-4dda-8078-7cc51c462254" />
 *Figure 1: Customer Support Performance & SLA Monitoring Dashboard*
+
 
 
 
