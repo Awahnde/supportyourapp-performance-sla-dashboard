@@ -237,7 +237,7 @@ These trends suggest the need for a review of support capacity, skills alignment
 6. Expand the dataset for trend analysis. One month of data supports a diagnostic snapshot but not trend identification. Adding November and December data would allow the team to identify whether SLA performance is improving, degrading, or holding steady.
 
 ## References
-SupportYourApp official website: https://supportyourapp.com
-GRI Standard 203 (Indirect Economic Impacts) — referenced for client impact framing
-Microsoft Excel PivotTable documentation: https://support.microsoft.com
-ITIL Service Level Management framework — used as a reference for SLA compliance interpretation
+* SupportYourApp official website: https://supportyourapp.com
+* GRI Standard 203 (Indirect Economic Impacts) - referenced for client impact framing
+* Microsoft Excel PivotTable documentation: https://support.microsoft.com
+* ITIL Service Level Management framework used as a reference for SLA compliance interpretation
