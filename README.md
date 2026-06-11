@@ -59,7 +59,22 @@ The dataset used for this project is a single-table operational support log cont
 
 Key fields in the dataset:
 
-FieldDescriptionTicket_IDUnique identifier per ticketAgent_NameSupport agent assigned to the ticketClientClient whose end-user raised the ticket (E-commerce App, FinTech SaaS, HealthTech Platform)RegionGeographic region of the ticket (APAC, EMEA, NA)LanguageLanguage the ticket was handled in (English, French, Spanish)Issue_TypeCategory of the support issuePriorityTicket priority level (High, Medium, Low)First_Response_Time_minsTime in minutes from ticket creation to first agent responseResolution_Time_hoursTime in hours from creation to ticket closeSLA_ComplianceBinary Yes/No — whether the ticket was resolved within the agreed SLA windowCSAT_ScoreCustomer satisfaction score (scale of 1–5)EscalatedWhether the ticket was escalated
+## Dataset Fields
+
+| Field | Description |
+|---------|-------------|
+| `Ticket_ID` | Unique identifier per ticket |
+| `Agent_Name` | Support agent assigned to the ticket |
+| `Client` | Client whose end-user raised the ticket (E-commerce App, FinTech SaaS, HealthTech Platform) |
+| `Region` | Geographic region of the ticket (APAC, EMEA, NA) |
+| `Language` | Language the ticket was handled in (English, French, Spanish) |
+| `Issue_Type` | Category of the support issue |
+| `Priority` | Ticket priority level (High, Medium, Low) |
+| `First_Response_Time_mins` | Time in minutes from ticket creation to first agent response |
+| `Resolution_Time_hours` | Time in hours from creation to ticket close |
+| `SLA_Compliance` | Binary Yes/No — whether the ticket was resolved within the agreed SLA window |
+| `CSAT_Score` | Customer satisfaction score (scale of 1–5) |
+| `Escalated` | Whether the ticket was escalated |
 
 ## Tools
 
@@ -74,17 +89,17 @@ Named ranges and structured references for cleaner formula logic
 
 Before jumping into pivot tables, I spent time understanding what the dataset was actually telling me and where the analytical gaps might be.
 
-Shape: 150 rows × 12 columns — one row per resolved ticket, all from October 2024.
+Shape: 150 rows × 12 columns. One row per resolved ticket, all from October 2024.
 
 Three clients, three regions, three languages. This meant any slice I built could be cross-referenced: for example, SLA compliance by region vs. by client vs. by language. That structure suggested the dashboard should let users filter across these dimensions rather than hard-code a single view.
 
-SLA Compliance is binary. The SLA_Compliance field is Yes/No, not a time-to-breach value. This meant I couldn't calculate how close tickets came to breaching — only whether they did. I flagged this as a limitation when interpreting results.
+SLA Compliance is binary. The SLA_Compliance field is Yes/No, not a time-to-breach value. This meant I couldn't calculate how close tickets came to breaching, only whether they did. I flagged this as a limitation when interpreting results.
 
-Priority distribution was uneven across clients. High-priority tickets were not evenly distributed, which mattered for interpreting per-agent SLA rates — an agent handling more high-priority tickets will naturally have different response metrics than one handling mostly low-priority work.
+Priority distribution was uneven across clients. High-priority tickets were not evenly distributed, which mattered for interpreting per-agent SLA rates. An agent handling more high-priority tickets will naturally have different response metrics than one handling mostly low-priority work.
 
-One month of data. All 150 tickets come from October 2024, so any trends are within-month patterns rather than longitudinal analysis. I kept this in mind when framing findings — avoiding language like "declining performance" when I could only see a single snapshot.
+One month of data. All 150 tickets come from October 2024, so any trends are within-month patterns rather than longitudinal analysis. I kept this in mind when framing findings, avoiding language like "declining performance" when I could only see a single snapshot.
 
-Potential data quality issue — "Unknown" client. A small number of tickets had Unknown as the client value. Rather than dropping these records, I kept them in and flagged them separately in the SLA risk analysis view, since they could indicate a tagging issue in the source system worth investigating.
+Potential data quality issue with "Unknown" client. A small number of tickets had Unknown as the client value. Rather than dropping these records, I kept them in and flagged them separately in the SLA risk analysis view, since they could indicate a tagging issue in the source system worth investigating.
 
 ## Data Preparation
 
