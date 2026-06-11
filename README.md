@@ -29,10 +29,25 @@
 
 ## Company Overview
 
+SupportYourApp is a multilingual customer support outsourcing company that provides managed support services to software and technology businesses. Their clients span SaaS platforms across industries including e-commerce, financial technology, and health technology. Support is delivered across multiple regions: North America (NA), Europe, Middle East & Africa (EMEA), and Asia-Pacific (APAC) and in several languages including English, French, and Spanish.
+
+The company's core value proposition is delivering fast, consistent, and SLA-compliant support on behalf of their clients. This makes performance tracking against SLA targets and CSAT benchmarks central to how they demonstrate value and identify operational risk.
+
 ## Project Overview
-- Business Problem
-- Objectives
-- Key questions the analysis aims to answer
+This project builds an Excel-based performance and SLA monitoring dashboard for SupportYourApp's customer support operations.
+
+The goal was to give operations and client success teams a clear view of where support performance stands — both in aggregate and broken down by the dimensions that actually matter operationally: which agents are carrying the most load, which clients are at SLA risk, where response times are slowest, and whether issue types are being resolved efficiently.
+
+The dashboard is organized across four analytical views:
+
+
+* Regional & Language Performance: Response time and SLA compliance by region and support language
+* Client & SLA Risk Analysis: SLA compliance rates and resolution patterns per client
+* Issue & Process Efficiency: Ticket volume, escalation patterns, and resolution time by issue type
+* Agent Performance & Workload: Per-agent ticket counts, response times, and SLA compliance
+
+
+The project covers the full analytical workflow: data understanding, cleaning, pivot-based analysis, and dashboard design with slicers for interactive filtering.
 
 ![Support_Your_App_dashboard](https://github.com/user-attachments/assets/3835c652-c801-4685-a340-bedae590ca07)
 
@@ -40,7 +55,20 @@
 
 This project uses a simulated, synthetic dataset created for portfolio and learning purposes. The data does not represent real clients, users, or operational records and was generated to reflect realistic customer support scenarios for analytical demonstration only.
 
+The dataset used for this project is a single-table operational support log containing 150 ticket records from October 2024. Each row represents one resolved support ticket.
+
+Key fields in the dataset:
+
+FieldDescriptionTicket_IDUnique identifier per ticketAgent_NameSupport agent assigned to the ticketClientClient whose end-user raised the ticket (E-commerce App, FinTech SaaS, HealthTech Platform)RegionGeographic region of the ticket (APAC, EMEA, NA)LanguageLanguage the ticket was handled in (English, French, Spanish)Issue_TypeCategory of the support issuePriorityTicket priority level (High, Medium, Low)First_Response_Time_minsTime in minutes from ticket creation to first agent responseResolution_Time_hoursTime in hours from creation to ticket closeSLA_ComplianceBinary Yes/No — whether the ticket was resolved within the agreed SLA windowCSAT_ScoreCustomer satisfaction score (scale of 1–5)EscalatedWhether the ticket was escalated
+
 ## Tools
+
+Microsoft Excel — data cleaning, pivot tables, calculated fields, and dashboard design
+
+PivotTables for aggregations by agent, region, client, and issue type
+Slicers for interactive filtering across dashboard views
+Conditional formatting to highlight SLA risk and performance thresholds
+Named ranges and structured references for cleaner formula logic
 
 ## Data Understanding & Structure
 
