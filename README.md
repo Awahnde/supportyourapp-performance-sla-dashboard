@@ -63,7 +63,7 @@ FieldDescriptionTicket_IDUnique identifier per ticketAgent_NameSupport agent ass
 
 ## Tools
 
-Microsoft Excel — data cleaning, pivot tables, calculated fields, and dashboard design
+Microsoft Excel - data cleaning, pivot tables, calculated fields, and dashboard design
 
 PivotTables for aggregations by agent, region, client, and issue type
 Slicers for interactive filtering across dashboard views
@@ -72,11 +72,95 @@ Named ranges and structured references for cleaner formula logic
 
 ## Data Understanding & Structure
 
+Before jumping into pivot tables, I spent time understanding what the dataset was actually telling me and where the analytical gaps might be.
+
+Shape: 150 rows × 12 columns — one row per resolved ticket, all from October 2024.
+
+Three clients, three regions, three languages. This meant any slice I built could be cross-referenced: for example, SLA compliance by region vs. by client vs. by language. That structure suggested the dashboard should let users filter across these dimensions rather than hard-code a single view.
+
+SLA Compliance is binary. The SLA_Compliance field is Yes/No, not a time-to-breach value. This meant I couldn't calculate how close tickets came to breaching — only whether they did. I flagged this as a limitation when interpreting results.
+
+Priority distribution was uneven across clients. High-priority tickets were not evenly distributed, which mattered for interpreting per-agent SLA rates — an agent handling more high-priority tickets will naturally have different response metrics than one handling mostly low-priority work.
+
+One month of data. All 150 tickets come from October 2024, so any trends are within-month patterns rather than longitudinal analysis. I kept this in mind when framing findings — avoiding language like "declining performance" when I could only see a single snapshot.
+
+Potential data quality issue — "Unknown" client. A small number of tickets had Unknown as the client value. Rather than dropping these records, I kept them in and flagged them separately in the SLA risk analysis view, since they could indicate a tagging issue in the source system worth investigating.
+
 ## Data Preparation
+
+The dataset arrived in reasonably clean condition, but I made several decisions before building analysis:
+
+1. Standardized column headers. A few column names had inconsistent spacing or formatting. I standardized these to ensure PivotTable field names were clean and readable in slicers.
+
+2. Checked for blanks and duplicates. I ran a quick duplicate check on Ticket_ID — all 150 were unique. Blank values were limited to the Unknown client grouping noted above.
+
+3. Created a SLA_Compliant_Flag helper column. The original SLA_Compliance field was text (Yes/No). I added a numeric flag (1/0) to enable straightforward SLA compliance rate calculations in PivotTables using AVERAGE()
+   rather than COUNTIF() logic — cleaner and less error-prone when slicers are applied.
+
+4. Formatted Resolution_Time_hours for readability. Raw values were decimals (e.g., 15.85 hours). I kept the raw values for calculations but applied number formatting in dashboard-facing cells to display one decimal place.
+
+5. Built a structured table. I converted the data range into an Excel Table (Ctrl + T) so that PivotTables would automatically include any new rows and so that structured references could be used in formulas.
 
 ## Exploratory Data Analysis (EDA)
 
+Before finalizing the dashboard structure, I explored the data to understand distributions and identify where the most interesting variation lived.
+
+Questions I started with:
+
+1. What does overall SLA compliance look like, and is 47% actually a problem or expected given priority mix?
+2. Are certain agents consistently slower, or is it a workload issue?
+3. Does language of support correlate with slower response times or lower SLA compliance?
+4. Are any clients disproportionately generating escalations or SLA breaches?
+
+
+What I found in the initial exploration:
+
+* Overall SLA compliance sat at 47.3%, meaning fewer than half of tickets were resolved within SLA. That is a significant operational signal regardless of how it is benchmarked, and became the framing anchor for the dashboard.
+
+* Agent workloads were not evenly distributed. E. Garcia held 35 tickets and D. Patel held 33, while B. Johnson had only 25. But B. Johnson's average first response time was the highest of all agents at ~71 minutes — similar to A. Smith — which suggested the slower agents were not simply carrying more load.
+
+* SLA compliance varied significantly by language. French-language tickets had the highest compliance rate (~58%), while Spanish had the lowest (~34%). That gap was large enough to warrant its own view.
+
+* EMEA had the best SLA compliance rate (~53%), while APAC had the lowest (~40%). Given that APAC also had slightly higher average response times (~66 mins vs. ~62 mins for EMEA), this pointed to a regional capacity or scheduling issue rather than a ticket complexity issue.
+
+* HealthTech Platform had the lowest SLA compliance of the three clients (~43%), while FinTech SaaS was highest (~52%). Given that HealthTech tickets may carry higher regulatory sensitivity, this was worth surfacing clearly.
+
 ## Data Analysis
+
+The analysis was built across four PivotTable-driven views, each answering a specific operational question.
+
+1. Regional & Language Performance
+
+Pivoted ticket counts, average first response time, SLA compliance %, and average resolution time by Region and by Language separately. Key measures:
+
+
+APAC: Avg response time 66.3 mins, SLA compliance 39.6%
+EMEA: Avg response time 61.7 mins, SLA compliance 53.1%
+NA: Avg response time 64.7 mins, SLA compliance 49.1%
+Spanish: SLA compliance 34.0% — notably the lowest of any language segment
+
+
+2. Client & SLA Risk Analysis
+
+Pivoted SLA compliance, average response time, and escalation rates by client. Also cross-tabulated priority level against SLA compliance to understand whether high-priority tickets were being handled differently:
+
+
+Of 51 High-priority tickets, 28 were SLA non-compliant — a 55% breach rate on the most urgent tier
+HealthTech Platform: SLA compliance 43.2%, vs. FinTech SaaS at 51.9%
+The Unknown client group had a 53.1% SLA compliance rate — in line with average, but worth resolving at source
+
+
+3. Issue & Process Efficiency
+
+Explored resolution time and escalation patterns by issue type. This view helps identify whether certain issue categories are systematically slower to resolve, which can point to process gaps, training needs, or knowledge base gaps.
+
+4. Agent Performance & Workload
+
+Pivoted tickets per agent alongside average first response time and SLA compliance rate per agent:
+
+AgentTicketsAvg First Response (mins)A. Smith2970.7B. Johnson2570.8C. Moyo2856.1D. Patel3367.0E. Garcia3554.7
+
+C. Moyo and E. Garcia had notably faster response times despite carrying comparable or heavier workloads — a signal worth investigating for coaching purposes.
 
 ## Results
 #### 1.  Monthly Call Volume Trend: 20.6% Increase from October to November
@@ -124,12 +208,21 @@ These trends suggest the need for a review of support capacity, skills alignment
 <img width="732" height="222" alt="image" src="https://github.com/user-attachments/assets/ba1901fb-7919-4655-92a5-0f997bfe4f80" /> 
 
 
-
-
-
-
-
 ## Recommendations
+1. Investigate Spanish-language support coverage first. The 34% SLA compliance rate is too large a gap to be explained by ticket complexity alone. This should be the first thing operations reviews — whether it's a staffing, scheduling, or skills issue.
 
-## Limitations
+2. Implement priority-based response routing. High-priority tickets should have a dedicated queue or escalation path that ensures they are picked up faster. The current data suggests high-priority tickets are not consistently getting faster responses.
+
+3. Look at what C. Moyo and E. Garcia are doing differently. These two agents respond ~15 minutes faster on average than A. Smith and B. Johnson while handling similar or higher volumes. Surfacing those patterns — whether it's tool usage, ticket triaging, or communication templates — could help bring up the average.
+
+4. Address APAC scheduling gaps. Slower response times and lower SLA compliance in APAC suggest a coverage window issue. This could be explored by filtering tickets by time-of-day if that field is available in future data pulls.
+
+5. Resolve the "Unknown" client tagging issue. While the Unknown group's SLA performance is not alarming, untagged tickets create blind spots in client reporting and billing. This should be fixed at the source system level.
+
+6. Expand the dataset for trend analysis. One month of data supports a diagnostic snapshot but not trend identification. Adding November and December data would allow the team to identify whether SLA performance is improving, degrading, or holding steady.
+
 ## References
+SupportYourApp official website: https://supportyourapp.com
+GRI Standard 203 (Indirect Economic Impacts) — referenced for client impact framing
+Microsoft Excel PivotTable documentation: https://support.microsoft.com
+ITIL Service Level Management framework — used as a reference for SLA compliance interpretation
